@@ -1,0 +1,38 @@
+[
+  {
+    "vulnerability": "XSS",
+    "sources": ["$_GET"],
+    "sanitizers": ["htmlspecialchars", "htmlentities", "highlight_string"],
+    "sinks": ["system", "eval"],
+    "implicit": "no"
+  },
+  {
+    "vulnerability": "SQL Injection",
+    "sources": ["$_GET", "$_POST", "$_COOKIE"],
+    "sanitizers": ["pg_prepare","pg_escape_string", "pg_escape_bytea"],
+    "sinks": ["pg_query", "pg_send_query"],
+    "implicit": "no"
+  },
+  {
+    "vulnerability": "Command Execution",
+    "sources": ["$_GET", "$_POST", "$_COOKIE"],
+    "sanitizers": ["escapeshellarg", "escapeshellcmd"],
+    "sinks": ["system", "eval", "exec", "popen"],
+    "implicit": "yes"
+  },
+  {
+    "vulnerability": "Xpath injection",
+    "sources": ["$_GET", "$_POST", "$_COOKIE"],
+    "sanitizers": ["addslashes"],
+    "sinks": ["xpath_eval", "xpath_eval_expression","xptr_eval"],
+    "implicit": "no"
+  },
+  {
+    "vulnerability": "File Inclusion",
+    "sources": ["$_GET", "$_POST", "$_COOKIE"],
+    "sanitizers": ["basename","dirname","pathinfo"],
+    "sinks": ["include", "include_once","parsekit_compile_file","php_check_syntax","require"],
+    "implicit": "yes"
+  }
+]
+
